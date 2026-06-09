@@ -1,18 +1,18 @@
 import { Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import AddProduct from "./pages/AddProduct";
-import MyProducts from "./pages/MyProducts";
-import EditProduct from "./pages/EditProduct";
-import AllProducts from "./pages/AllProducts";
-import ProductDetails from "./pages/ProductDetails";
-import FarmerOrders from "./pages/FarmerOrders";
-import MyOrders from "./pages/MyOrders";
-import Profile from "./pages/Profile";
-import EditProfile from "./pages/EditProfile";
-import Notifications from "./pages/Notifications";
-import Wishlist from "./pages/Wishlist";
+import Login from "./Pages/Login";
+import Register from "./Pages/Register";
+import Dashboard from "./Pages/Dashboard";
+import AddProduct from "./Pages/AddProduct";
+import MyProducts from "./Pages/MyProducts";
+import EditProduct from "./Pages/EditProduct";
+import AllProducts from "./Pages/AllProducts";
+import ProductDetails from "./Pages/ProductDetails";
+import FarmerOrders from "./Pages/FarmerOrders";
+import MyOrders from "./Pages/MyOrders";
+import Profile from "./Pages/Profile";
+import EditProfile from "./Pages/EditProfile";
+import Notifications from "./Pages/Notifications";
+import Wishlist from "./Pages/Wishlist";
 
 function App() {
   return (
