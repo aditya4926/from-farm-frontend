@@ -8,10 +8,10 @@ import EditProduct from "./pages/EditProduct";
 import AllProducts from "./pages/AllProducts";
 import ProductDetails from "./pages/ProductDetails";
 import FarmerOrders from "./pages/FarmerOrders";
-import MyOrders from "./Pages/MyOrders";
+import MyOrders from "./pages/MyOrders";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
-import Notifications from "./Pages/Notifications";
+import Notifications from "./pages/Notifications";
 import Wishlist from "./pages/Wishlist";
 
 function App() {
