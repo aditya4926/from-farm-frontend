@@ -21,7 +21,7 @@ function MyOrders() {
                 }
             );
 
-            setOrders(data);
+            setOrders(res.data);
         } catch (error) {
             console.log(error);
         }

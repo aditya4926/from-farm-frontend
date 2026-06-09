@@ -20,7 +20,7 @@ function FarmerOrders() {
             }
         );
 
-        console.log("ORDERS =", data);
+       
         setOrders(data);
     };
     const updateStatus = async (id, status) => {
