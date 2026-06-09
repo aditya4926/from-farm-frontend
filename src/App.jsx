@@ -21,16 +21,16 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/add-product" element={<AddProduct />} />
-      <Route path="/my-products"element={<MyProducts />}/>
+      <Route path="/my-products" element={<MyProducts />} />
       <Route path="/edit-product/:id" element={<EditProduct />} />
       <Route path="/products" element={<AllProducts />} />
-      <Route path="/product/:id"element={<ProductDetails />}/>
-      <Route path="/farmer-orders"element={<FarmerOrders />}/>
-      <Route path="/my-orders"element={<MyOrders />}/>
-      <Route path="/profile"element={<Profile />}/>
-      <Route path="/edit-profile"element={<EditProfile />}/>
-      <Route path="/notifications"element={<Notifications />}/>
-      <Route path="/Wishlist"element={<Wishlist />}/>
+      <Route path="/product/:id" element={<ProductDetails />} />
+      <Route path="/farmer-orders" element={<FarmerOrders />} />
+      <Route path="/my-orders" element={<MyOrders />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/edit-profile" element={<EditProfile />} />
+      <Route path="/notifications" element={<Notifications />} />
+      <Route path="/Wishlist" element={<Wishlist />} />
     </Routes>
   );
 }
