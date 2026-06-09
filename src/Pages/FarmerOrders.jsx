@@ -3,7 +3,7 @@ import api from "../api/axios";
 
 function FarmerOrders() {
     const [orders, setOrders] = useState([]);
-    console.log("ORDERS =", data);
+    
     useEffect(() => {
         fetchOrders();
     }, []);
