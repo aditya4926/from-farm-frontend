@@ -18,6 +18,8 @@ function EditProfile() {
             village: user.village,
             taluka: user.taluka,
             district: user.district,
+            latitude: user.location?.latitude || "",
+            longitude: user.location?.longitude || "",
         });
 
     const handleChange = (e) => {
@@ -25,6 +27,23 @@ function EditProfile() {
             ...formData,
             [e.target.name]: e.target.value,
         });
+    };
+    const getLocation = () => {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                setFormData((prev) => ({
+                    ...prev,
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                }));
+
+                alert("Location Captured Successfully 📍");
+            },
+            (error) => {
+                console.log(error);
+                alert("Location Permission Denied");
+            }
+        );
     };
 
     const submitHandler = async (e) => {
@@ -125,6 +144,13 @@ function EditProfile() {
                 onChange={handleChange}
                 className="border p-2 block mb-3"
             />
+            <button
+                type="button"
+                onClick={getLocation}
+                className="bg-blue-600 text-white px-4 py-2 rounded mb-3 block"
+            >
+                📍 Use Current Location
+            </button>
 
             <button
                 className="bg-green-600 text-white px-4 py-2 rounded"

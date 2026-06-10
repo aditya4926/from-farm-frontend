@@ -114,6 +114,12 @@ function ProductDetails() {
         <h2 className="text-2xl font-bold mt-8">
           Add Review
         </h2>
+        <p>
+          Lat: {product.farmerId?.location?.latitude}
+        </p>
+        <p>
+          Lng: {product.farmerId?.location?.longitude}
+        </p>
 
         <select
           value={rating}
