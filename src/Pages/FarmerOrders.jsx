@@ -120,72 +120,64 @@ function FarmerOrders() {
                     </p>
 
                     <div className="mt-3">
-                        <button
-                            onClick={() => updateStatus(order._id, "Packed")}
-                            className="bg-blue-500 text-white px-3 py-1 rounded mr-2 mt-2"
-                        >
-                            Packed
-                        </button>
+                        {order.status === "Pending" && (
+                            <>
+                                <button
+                                    onClick={() => updateStatus(order._id, "Accepted")}
+                                    className="bg-green-500 text-white px-3 py-1 rounded mr-2"
+                                >
+                                    Accept
+                                </button>
 
-                        <button
-                            onClick={() => updateStatus(order._id, "Shipped")}
-                            className="bg-purple-500 text-white px-3 py-1 rounded mr-2 mt-2"
-                        >
-                            Shipped
-                        </button>
+                                <button
+                                    onClick={() => updateStatus(order._id, "Rejected")}
+                                    className="bg-red-500 text-white px-3 py-1 rounded"
+                                >
+                                    Reject
+                                </button>
+                            </>
+                        )}
 
-                        <button
-                            onClick={() => updateStatus(order._id, "Delivered")}
-                            className
-                            ="bg-green-700 text-white px-3 py-1 rounded mt-2"
-                        >
-                            Delivered
-                        </button>
-                        <button
-                            onClick={() =>
-                                updateStatus(order._id, "Accepted")
-                            }
-                            className="bg-green-500 text-white px-3 py-1 rounded mr-2"
-                        >
-                            Accept
-                        </button>
+                        {order.status === "Accepted" && (
+                            <button
+                                onClick={() => updateStatus(order._id, "Packed")}
+                                className="bg-blue-500 text-white px-3 py-1 rounded"
+                            >
+                                Mark as Packed
+                            </button>
+                        )}
 
-                        <button
-                            onClick={() =>
-                                updateStatus(order._id, "Rejected")
-                            }
-                            className="bg-red-500 text-white px-3 py-1 rounded"
-                        >
-                            Reject
-                        </button>
+                        {order.status === "Packed" && (
+                            <button
+                                onClick={() => updateStatus(order._id, "Shipped")}
+                                className="bg-purple-500 text-white px-3 py-1 rounded"
+                            >
+                                Mark as Shipped
+                            </button>
+                        )}
 
+                        {order.status === "Shipped" && (
+                            <button
+                                onClick={() => updateStatus(order._id, "Delivered")}
+                                className="bg-green-700 text-white px-3 py-1 rounded"
+                            >
+                                Mark as Delivered
+                            </button>
+                        )}
+
+                        {order.status === "Delivered" && (
+                            <p className="text-green-700 font-bold mt-2">
+                                ✅ Order Delivered
+                            </p>
+                        )}
+
+                        {order.status === "Rejected" && (
+                            <p className="text-red-600 font-bold mt-2">
+                                ❌ Order Rejected
+                            </p>
+                        )}
                     </div>
-                    <button
-                        onClick={() =>
-                            updateStatus(order._id, "Packed")
-                        }
-                        className="bg-blue-500 text-white px-3 py-1 rounded mr-2"
-                    >
-                        Packed
-                    </button>
-
-                    <button
-                        onClick={() =>
-                            updateStatus(order._id, "Shipped")
-                        }
-                        className="bg-purple-500 text-white px-3 py-1 rounded mr-2"
-                    >
-                        Shipped
-                    </button>
-
-                    <button
-                        onClick={() =>
-                            updateStatus(order._id, "Delivered")
-                        }
-                        className="bg-green-700 text-white px-3 py-1 rounded"
-                    >
-                        Delivered
-                    </button>
+                   
                 </div>
             ))}
 
