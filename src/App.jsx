@@ -13,6 +13,8 @@ import Profile from "./Pages/Profile";
 import EditProfile from "./Pages/EditProfile";
 import Notifications from "./Pages/Notifications";
 import Wishlist from "./Pages/Wishlist";
+import Chat from "./Pages/Chat";
+import MyChats from "./Pages/MyChats";
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
       <Route path="/edit-profile" element={<EditProfile />} />
       <Route path="/notifications" element={<Notifications />} />
       <Route path="/Wishlist" element={<Wishlist />} />
+      <Route path="/chat/:userId" element={<Chat />} />
+      <Route path="/my-chats" element={<MyChats />} />
     </Routes>
   );
 }

@@ -76,6 +76,62 @@ function MyOrders() {
                             {order.status}
                         </span>
                     </p>
+                    <div className="mt-4">
+                        <div className="flex items-center gap-2">
+
+                            <div className={
+                                ["Pending", "Accepted", "Packed", "Shipped", "Delivered"]
+                                    .includes(order.status)
+                                    ? "w-4 h-4 bg-green-500 rounded-full"
+                                    : "w-4 h-4 bg-gray-300 rounded-full"
+                            }></div>
+
+                            <span>Pending</span>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                            <div className={
+                                ["Accepted", "Packed", "Shipped", "Delivered"]
+                                    .includes(order.status)
+                                    ? "w-4 h-4 bg-green-500 rounded-full"
+                                    : "w-4 h-4 bg-gray-300 rounded-full"
+                            }></div>
+
+                            <span>Accepted</span>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                            <div className={
+                                ["Packed", "Shipped", "Delivered"]
+                                    .includes(order.status)
+                                    ? "w-4 h-4 bg-green-500 rounded-full"
+                                    : "w-4 h-4 bg-gray-300 rounded-full"
+                            }></div>
+
+                            <span>Packed</span>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                            <div className={
+                                ["Shipped", "Delivered"]
+                                    .includes(order.status)
+                                    ? "w-4 h-4 bg-green-500 rounded-full"
+                                    : "w-4 h-4 bg-gray-300 rounded-full"
+                            }></div>
+
+                            <span>Shipped</span>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                            <div className={
+                                order.status === "Delivered"
+                                    ? "w-4 h-4 bg-green-500 rounded-full"
+                                    : "w-4 h-4 bg-gray-300 rounded-full"
+                            }></div>
+
+                            <span>Delivered</span>
+                        </div>
+                    </div>
                     <p>
                         Ordered On:
                         {" "}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../api/axios";
+import { Link } from "react-router-dom";
 
 function ProductDetails() {
   const { id } = useParams();
@@ -120,6 +121,23 @@ function ProductDetails() {
         <p>
           Lng: {product.farmerId?.location?.longitude}
         </p>
+        <Link
+          to={`/chat/${product.farmerId?._id}`}
+          className="inline-block bg-purple-600 text-white px-4 py-2 rounded mt-3"
+        >
+          💬 Chat with Farmer
+        </Link>
+        {product.farmerId?.location && (
+          <a
+            href={`https://www.google.com/maps?q=${product.farmerId.location.latitude},${product.farmerId.location.longitude}`}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block bg-blue-600 text-white px-4 py-2 rounded mt-3"
+          >
+            📍 View Farmer Location
+          </a>
+        )}
+
 
         <select
           value={rating}

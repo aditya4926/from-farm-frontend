@@ -31,6 +31,8 @@ function EditProfile() {
     const getLocation = () => {
         navigator.geolocation.getCurrentPosition(
             (position) => {
+                console.log(position.coords.latitude);
+                console.log(position.coords.longitude);
                 setFormData((prev) => ({
                     ...prev,
                     latitude: position.coords.latitude,
@@ -48,7 +50,10 @@ function EditProfile() {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-
+        console.log("SENDING PROFILE =", {
+            ...formData,
+            photo,
+        });
         const token =
             localStorage.getItem("token");
 

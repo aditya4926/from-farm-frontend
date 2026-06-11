@@ -157,6 +157,12 @@ function Dashboard() {
                                 {stats.outOfStock}
                             </p>
                         </div>
+                        <Link
+                            to="/my-chats"
+                            className="bg-purple-600 text-white px-5 py-3 rounded"
+                        >
+                            💬 My Chats
+                        </Link>
 
 
                     </>
@@ -226,6 +232,12 @@ function Dashboard() {
                             className="bg-indigo-600 text-white px-5 py-3 rounded"
                         >
                             My Orders
+                        </Link>
+                        <Link
+                            to="/my-chats"
+                            className="bg-purple-600 text-white px-5 py-3 rounded"
+                        >
+                            💬 My Chats
                         </Link>
 
                     </>

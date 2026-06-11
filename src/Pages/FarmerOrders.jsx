@@ -3,7 +3,7 @@ import api from "../api/axios";
 
 function FarmerOrders() {
     const [orders, setOrders] = useState([]);
-    
+
     useEffect(() => {
         fetchOrders();
     }, []);
@@ -20,7 +20,7 @@ function FarmerOrders() {
             }
         );
 
-       
+
         setOrders(data);
     };
     const updateStatus = async (id, status) => {
@@ -121,6 +121,27 @@ function FarmerOrders() {
 
                     <div className="mt-3">
                         <button
+                            onClick={() => updateStatus(order._id, "Packed")}
+                            className="bg-blue-500 text-white px-3 py-1 rounded mr-2 mt-2"
+                        >
+                            Packed
+                        </button>
+
+                        <button
+                            onClick={() => updateStatus(order._id, "Shipped")}
+                            className="bg-purple-500 text-white px-3 py-1 rounded mr-2 mt-2"
+                        >
+                            Shipped
+                        </button>
+
+                        <button
+                            onClick={() => updateStatus(order._id, "Delivered")}
+                            className
+                            ="bg-green-700 text-white px-3 py-1 rounded mt-2"
+                        >
+                            Delivered
+                        </button>
+                        <button
                             onClick={() =>
                                 updateStatus(order._id, "Accepted")
                             }
@@ -137,7 +158,34 @@ function FarmerOrders() {
                         >
                             Reject
                         </button>
+
                     </div>
+                    <button
+                        onClick={() =>
+                            updateStatus(order._id, "Packed")
+                        }
+                        className="bg-blue-500 text-white px-3 py-1 rounded mr-2"
+                    >
+                        Packed
+                    </button>
+
+                    <button
+                        onClick={() =>
+                            updateStatus(order._id, "Shipped")
+                        }
+                        className="bg-purple-500 text-white px-3 py-1 rounded mr-2"
+                    >
+                        Shipped
+                    </button>
+
+                    <button
+                        onClick={() =>
+                            updateStatus(order._id, "Delivered")
+                        }
+                        className="bg-green-700 text-white px-3 py-1 rounded"
+                    >
+                        Delivered
+                    </button>
                 </div>
             ))}
 
