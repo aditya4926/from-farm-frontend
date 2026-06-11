@@ -11,6 +11,7 @@ function Chat() {
 
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
+  const [onlineUsers, setOnlineUsers] = useState([]);
 
   useEffect(() => {
     socket.emit("join", loginUser._id);
@@ -19,9 +20,13 @@ function Chat() {
     socket.on("receiveMessage", (data) => {
       setMessages((prev) => [...prev, data]);
     });
+    socket.on("onlineUsers", (users) => {
+      setOnlineUsers(users);
+    });
 
     return () => {
       socket.off("receiveMessage");
+      socket.off("onlineUsers");
     };
   }, [userId]);
 
@@ -72,6 +77,17 @@ function Chat() {
       <h1 className="text-3xl font-bold mb-6">
         Chat 💬
       </h1>
+      <p
+        className={
+          onlineUsers.includes(userId)
+            ? "text-green-600 font-bold"
+            : "text-gray-500 font-bold"
+        }
+      >
+        {onlineUsers.includes(userId)
+          ? "🟢 Online"
+          : "⚫ Offline"}
+      </p>
 
       <div className="border rounded p-4 h-96 overflow-y-auto mb-4">
         {messages.map((msg) => (
