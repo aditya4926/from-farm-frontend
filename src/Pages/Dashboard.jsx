@@ -130,6 +130,14 @@ function Dashboard() {
                         >
                             My Products
                         </Link>
+                        {user.role === "admin" && (
+                            <Link
+                                to="/admin-dashboard"
+                                className="bg-black text-white px-5 py-3 rounded"
+                            >
+                                👨‍💼 Admin Panel
+                            </Link>
+                        )}
 
                         <Link
                             to="/farmer-orders"
@@ -239,6 +247,19 @@ function Dashboard() {
                         >
                             💬 My Chats
                         </Link>
+                        <Link
+                            to="/nearby-products"
+                            className="bg-green-700 text-white px-5 py-3 rounded"
+                        >
+                            📍 Nearby Farmers
+                        </Link>
+                        <Link
+                            to="/nearby-map"
+                            className="bg-blue-600 text-white px-5 py-3 rounded"
+                        >
+                            🗺️ Nearby Farmers Map
+                        </Link>
+
 
                     </>
                 )}

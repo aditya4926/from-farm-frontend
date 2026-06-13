@@ -15,6 +15,10 @@ import Notifications from "./Pages/Notifications";
 import Wishlist from "./Pages/Wishlist";
 import Chat from "./Pages/Chat";
 import MyChats from "./Pages/MyChats";
+import NearbyProducts from "./Pages/NearbyProducts";
+import NearbyMap from "./Pages/NearbyMap";
+import AdminDashboard from "./Pages/AdminDashboard";
+import AdminUsers from "./Pages/AdminUsers";
 
 function App() {
   return (
@@ -35,6 +39,10 @@ function App() {
       <Route path="/Wishlist" element={<Wishlist />} />
       <Route path="/chat/:userId" element={<Chat />} />
       <Route path="/my-chats" element={<MyChats />} />
+      <Route path="/nearby-products"element={<NearbyProducts />}/>
+      <Route path="/nearby-map" element={<NearbyMap />}/>
+      <Route path="/admin-dashboard" element={<AdminDashboard />}/>
+      <Route path="/admin-users" element={<AdminUsers />} />
     </Routes>
   );
 }
