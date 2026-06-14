@@ -130,14 +130,7 @@ function Dashboard() {
                         >
                             My Products
                         </Link>
-                        {user.role === "admin" && (
-                            <Link
-                                to="/admin-dashboard"
-                                className="bg-black text-white px-5 py-3 rounded"
-                            >
-                                👨‍💼 Admin Panel
-                            </Link>
-                        )}
+                       
 
                         <Link
                             to="/farmer-orders"
@@ -275,6 +268,23 @@ function Dashboard() {
                 >
                     Logout
                 </button>
+                {user.role === "admin" && (
+                    <>
+                        <Link
+                            to="/admin-dashboard"
+                            className="bg-black text-white px-6 py-3 rounded mr-3"
+                        >
+                            👨‍💼 Admin Dashboard
+                        </Link>
+
+                        <Link
+                            to="/admin-users"
+                            className="bg-blue-600 text-white px-6 py-3 rounded"
+                        >
+                            👥 Manage Users
+                        </Link>
+                    </>
+                )}
 
             </div>
 
