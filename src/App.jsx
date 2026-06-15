@@ -19,6 +19,7 @@ import NearbyProducts from "./Pages/NearbyProducts";
 import NearbyMap from "./Pages/NearbyMap";
 import AdminDashboard from "./Pages/AdminDashboard";
 import AdminUsers from "./Pages/AdminUsers";
+import AdminProducts from "./Pages/AdminProducts";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
       <Route path="/nearby-map" element={<NearbyMap />}/>
       <Route path="/admin-dashboard" element={<AdminDashboard />}/>
       <Route path="/admin-users" element={<AdminUsers />} />
+      <Route path="/admin-products"element={<AdminProducts />}/>
     </Routes>
   );
 }

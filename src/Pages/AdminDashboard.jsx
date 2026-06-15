@@ -34,6 +34,12 @@ function AdminDashboard() {
                 Admin Dashboard 👨‍💼
             </h1>
             <Link
+                to="/admin-products"
+                className="bg-green-600 text-white px-4 py-2 rounded"
+            >
+                🌾 Manage Products
+            </Link>
+            <Link
                 to="/admin-users"
                 className="inline-block bg-blue-600 text-white px-4 py-2 rounded mb-6"
             >
