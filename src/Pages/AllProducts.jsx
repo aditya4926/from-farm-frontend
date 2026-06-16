@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
 import { Link } from "react-router-dom";
+import ProductCard from "../components/ui/ProductCard";
 
 function AllProducts() {
     const [products, setProducts] = useState([]);
@@ -125,8 +126,8 @@ function AllProducts() {
             console.log(error);
         }
     };
-    
-    
+
+
     const filteredProducts = products.filter((product) => {
         const matchSearch = product.title
             .toLowerCase()
@@ -180,7 +181,7 @@ function AllProducts() {
             <h1 className="text-3xl font-bold text-green-600 mb-6">
                 All Products 🌾
             </h1>
-            
+
             <div className="flex gap-4 mb-6">
 
                 <input
@@ -203,124 +204,71 @@ function AllProducts() {
                 </select>
 
             </div>
-            <div className="grid md:grid-cols-3 gap-6">
-                {filteredProducts.map((product) => (
-                    <div
-                        key={product._id}
-                        className="border rounded-lg p-4 shadow"
-                    >
-                        <img
-                            src={product.image || "https://via.placeholder.com/300"}
-                            alt={product.title}
-                            className="w-full h-48 object-cover rounded"
-                        />
+            
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {filteredProducts.map((product) => (
+                        <ProductCard
+                            key={product._id}
+                            product={product}
+                            onWishlist={addToWishlist}
+                        >
+                            <div className="mt-4">
+                                <label className="block">
+                                    <input
+                                        type="radio"
+                                        value="COD"
+                                        checked={paymentMethod === "COD"}
+                                        onChange={(e) =>
+                                            setPaymentMethod(e.target.value)
+                                        }
+                                    />
+                                    {" "}Cash On Delivery
+                                </label>
 
-                        <h2 className="text-xl font-bold mt-3">
-                            {product.title}
-                        </h2>
+                                <label className="block mt-2">
+                                    <input
+                                        type="radio"
+                                        value="ONLINE"
+                                        checked={paymentMethod === "ONLINE"}
+                                        onChange={(e) =>
+                                            setPaymentMethod(e.target.value)
+                                        }
+                                    />
+                                    {" "}Online Payment
+                                </label>
 
-                        <p>Category: {product.category}</p>
-
-                        <p className="text-green-600 font-bold">
-                            ₹{product.price}/{product.unit}
-                        </p>
-
-                        <p>
-                            Quantity: {product.quantity} {product.unit}
-                        </p>
-                        <div className="mt-2">
-                            <label>
                                 <input
-                                    type="radio"
-                                    value="COD"
-                                    checked={paymentMethod === "COD"}
+                                    type="number"
+                                    min="1"
+                                    placeholder="Enter Quantity"
+                                    value={orderQty[product._id] || ""}
                                     onChange={(e) =>
-                                        setPaymentMethod(e.target.value)
+                                        setOrderQty({
+                                            ...orderQty,
+                                            [product._id]: e.target.value,
+                                        })
                                     }
+                                    className="border p-2 rounded-xl w-full mt-3"
                                 />
-                                Cash On Delivery
-                            </label>
 
-                            <br />
-
-                            <label>
-                                <input
-                                    type="radio"
-                                    value="ONLINE"
-                                    checked={paymentMethod === "ONLINE"}
-                                    onChange={(e) =>
-                                        setPaymentMethod(e.target.value)
-                                    }
-                                />
-                                Online Payment
-                            </label>
-                        </div>
-
-                        <p className="mt-2">
-                            {product.description}
-                        </p>
-                        <p>
-                            ⭐ {product.averageRating?.toFixed(1)}
-                        </p>
-
-                        <div className="mt-3 border-t pt-3">
-                            <p className="font-semibold">
-                                Farmer: {product.farmerId?.name}
-                            </p>
-
-                            <p>
-                                📞 {product.farmerId?.mobile}
-                            </p>
-
-                            <p>
-                                📍 {product.farmerId?.village},
-                                {" "}
-                                {product.farmerId?.taluka}
-                            </p>
-                        </div>
-                        <Link
-                            to={`/product/${product._id}`}
-                            className="block text-center bg-green-600 text-white py-2 rounded mt-4"
-                        >
-                            View Details
-                        </Link>
-                        <input
-                            type="number"
-                            min="1"
-                            placeholder="Enter Quantity"
-                            value={orderQty[product._id] || ""}
-                            onChange={(e) =>
-                                setOrderQty({
-                                    ...orderQty,
-                                    [product._id]: e.target.value,
-                                })
-                            }
-                            className="border p-2 rounded w-full mt-3"
-                        />
-                        <button
-                            onClick={() => addToWishlist(product._id)}
-                            className="bg-pink-500 text-white px-4 py-2 rounded mt-3 w-full"
-                        >
-                            ❤️ Add To Wishlist
-                        </button>
-                        <button
-                            onClick={() => {
-
-                                if (paymentMethod === "ONLINE") {
-                                    placeOrder(product);
-                                } else {
-                                    placeCODOrder(product);
-                                }
-
-                            }}
-                            className="bg-green-600 text-white px-4 py-2 rounded mt-3"
-                        >
-                            Place Order
-                        </button>
-                    </div>
-                ))}
+                                <button
+                                    onClick={() => {
+                                        if (paymentMethod === "ONLINE") {
+                                            placeOrder(product);
+                                        } else {
+                                            placeCODOrder(product);
+                                        }
+                                    }}
+                                    className="bg-green-600 text-white w-full py-3 rounded-xl mt-3"
+                                >
+                                    Place Order
+                                </button>
+                            </div>
+                        </ProductCard>
+                    ))}
+                </div>
             </div>
-        </div>
+        
     );
 }
 

@@ -52,99 +52,139 @@ function ProductDetails() {
   }
 
   return (
-    <div className="p-8 max-w-4xl mx-auto">
+  <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-100 p-8">
+    <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8">
 
-      <img
-        src={product.image}
-        alt={product.title}
-        className="w-full h-96 object-cover rounded-lg"
-      />
+      <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
+        <img
+          src={
+            product.image ||
+            "https://dummyimage.com/700x500/eeeeee/000000&text=No+Image"
+          }
+          alt={product.title}
+          className="w-full h-[460px] object-cover"
+        />
+      </div>
 
-      <h1 className="text-4xl font-bold mt-6">
-        {product.title}
-      </h1>
+      <div className="bg-white rounded-3xl shadow-xl p-8">
+        <span className="bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold">
+          {product.category}
+        </span>
 
-      <p className="text-green-600 text-2xl font-bold mt-2">
-        ₹{product.price}/{product.unit}
-      </p>
-      <h2 className="text-2xl font-bold mt-8">
-        Reviews
-      </h2>
+        <h1 className="text-5xl font-bold text-gray-800 mt-5">
+          {product.title}
+        </h1>
 
-      {product?.reviews?.map((review) => (
-        <div
-          key={review._id}
-          className="border p-3 rounded mt-3"
-        >
-          <h3 className="font-bold">
-            {review.name}
-          </h3>
+        <p className="text-green-700 text-3xl font-bold mt-4">
+          ₹{product.price}/{product.unit}
+        </p>
 
-          <p>⭐ {review.rating}/5</p>
+        <p className="mt-3 text-gray-600">
+          Stock: {product.quantity} {product.unit}
+        </p>
 
-          <p>{review.comment}</p>
+        <p className="mt-4 text-gray-700 leading-7">
+          {product.description}
+        </p>
+
+        <div className="mt-8 border-t pt-6">
+          <h2 className="text-2xl font-bold mb-4">
+            Farmer Details 👨‍🌾
+          </h2>
+
+          <div className="bg-green-50 rounded-2xl p-5">
+            <p className="font-semibold text-lg">
+              {product.farmerId?.name}
+            </p>
+            <p className="text-gray-600">
+              📞 {product.farmerId?.mobile}
+            </p>
+            <p className="text-gray-600">
+              📍 {product.farmerId?.village}, {product.farmerId?.taluka}, {product.farmerId?.district}
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-3 mt-5">
+            <Link
+              to={`/chat/${product.farmerId?._id}`}
+              className="bg-purple-600 hover:bg-purple-700 text-white px-5 py-3 rounded-xl"
+            >
+              💬 Chat
+            </Link>
+
+            <a
+              href={`tel:${product.farmerId?.mobile}`}
+              className="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-xl"
+            >
+              📞 Call
+            </a>
+
+            <a
+              href={`https://wa.me/91${product.farmerId?.mobile}`}
+              target="_blank"
+              rel="noreferrer"
+              className="bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-xl"
+            >
+              WhatsApp
+            </a>
+
+            {product.farmerId?.location?.latitude &&
+              product.farmerId?.location?.longitude && (
+                <a
+                  href={`https://www.google.com/maps?q=${product.farmerId.location.latitude},${product.farmerId.location.longitude}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl"
+                >
+                  📍 Location
+                </a>
+              )}
+          </div>
         </div>
-      ))}
+      </div>
+    </div>
 
-      <p className="mt-3">
-        Quantity: {product.quantity} {product.unit}
-      </p>
-
-      <p className="mt-4">
-        {product.description}
-      </p>
-
-      <div className="border-t mt-6 pt-6">
-        <h2 className="text-2xl font-bold mb-3">
-          Farmer Details 👨‍🌾
+    <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 mt-8">
+      <div className="bg-white rounded-3xl shadow-xl p-8">
+        <h2 className="text-3xl font-bold mb-6">
+          Reviews ⭐
         </h2>
 
-        <p>Name: {product.farmerId?.name}</p>
+        {product?.reviews?.length === 0 ? (
+          <p className="text-gray-500">
+            No reviews yet
+          </p>
+        ) : (
+          product?.reviews?.map((review) => (
+            <div
+              key={review._id}
+              className="border-b py-4"
+            >
+              <h3 className="font-bold">
+                {review.name}
+              </h3>
 
-        <p>Mobile: {product.farmerId?.mobile}</p>
+              <p className="text-yellow-500">
+                ⭐ {review.rating}/5
+              </p>
 
-        <p>
-          Location:
-          {" "}
-          {product.farmerId?.village},
-          {" "}
-          {product.farmerId?.taluka},
-          {" "}
-          {product.farmerId?.district}
-        </p>
-        <h2 className="text-2xl font-bold mt-8">
-          Add Review
-        </h2>
-        <p>
-          Lat: {product.farmerId?.location?.latitude}
-        </p>
-        <p>
-          Lng: {product.farmerId?.location?.longitude}
-        </p>
-        <Link
-          to={`/chat/${product.farmerId?._id}`}
-          className="inline-block bg-purple-600 text-white px-4 py-2 rounded mt-3"
-        >
-          💬 Chat with Farmer
-        </Link>
-        {product.farmerId?.location && (
-          <a
-            href={`https://www.google.com/maps?q=${product.farmerId.location.latitude},${product.farmerId.location.longitude}`}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-block bg-blue-600 text-white px-4 py-2 rounded mt-3"
-          >
-            📍 View Farmer Location
-          </a>
+              <p className="text-gray-600">
+                {review.comment}
+              </p>
+            </div>
+          ))
         )}
+      </div>
 
+      <div className="bg-white rounded-3xl shadow-xl p-8">
+        <h2 className="text-3xl font-bold mb-6">
+          Add Review ✍️
+        </h2>
 
         <select
           value={rating}
-          onChange={(e) =>
-            setRating(e.target.value)
-          }
-          className="border p-2"
+          onChange={(e) => setRating(e.target.value)}
+          className="border border-gray-300 p-3 rounded-xl w-full mb-4"
         >
           <option value="1">1 ⭐</option>
           <option value="2">2 ⭐</option>
@@ -155,44 +195,21 @@ function ProductDetails() {
 
         <textarea
           value={comment}
-          onChange={(e) =>
-            setComment(e.target.value)
-          }
-          placeholder="Write Review..."
-          className="border p-3 w-full mt-2"
+          onChange={(e) => setComment(e.target.value)}
+          placeholder="Write your review..."
+          className="border border-gray-300 p-4 rounded-xl w-full h-32"
         />
 
         <button
           onClick={submitReview}
-          className="bg-green-600 text-white px-4 py-2 rounded mt-3"
+          className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl mt-4 w-full"
         >
           Submit Review
         </button>
-
-        <div className="flex gap-4 mt-5">
-
-          <a
-            href={`tel:${product.farmerId?.mobile}`}
-            className="bg-green-600 text-white px-5 py-3 rounded"
-          >
-            📞 Call Farmer
-          </a>
-
-          <a
-            href={`https://wa.me/91${product.farmerId?.mobile}`}
-            target="_blank"
-            rel="noreferrer"
-            className="bg-green-500 text-white px-5 py-3 rounded"
-          >
-            💬 WhatsApp
-          </a>
-
-
-        </div>
       </div>
-
     </div>
-  );
+  </div>
+);
 }
 
 export default ProductDetails;

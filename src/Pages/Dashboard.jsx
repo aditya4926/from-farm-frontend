@@ -1,12 +1,17 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../api/axios";
+import Page from "../components/ui/Page";
+import StatCard from "../components/ui/StatCard";
+import ActionCard from "../components/ui/ActionCard";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, } from "recharts";
 
 function Dashboard() {
     const user = JSON.parse(localStorage.getItem("user"));
     const navigate = useNavigate();
     const [revenue, setRevenue] = useState(0);
     const [notificationCount, setNotificationCount] = useState(0);
+    const [monthlyRevenue, setMonthlyRevenue] = useState([]);
     const fetchRevenue = async () => {
         try {
             const token = localStorage.getItem("token");
@@ -41,6 +46,7 @@ function Dashboard() {
         fetchOrderStats();
         fetchRevenue();
         fetchNotificationCount();
+        fetchMonthlyRevenue();
     }, []);
 
     const fetchStats = async () => {
@@ -102,194 +108,88 @@ function Dashboard() {
             console.log(error);
         }
     };
+    const fetchMonthlyRevenue = async () => {
+        try {
+            const token = localStorage.getItem("token");
+
+            const { data } = await api.get("/orders/monthly-revenue", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            setMonthlyRevenue(data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
-        <div className="p-10">
-            <h1 className="text-3xl font-bold text-green-600">
-                Welcome {user?.name} 🌾
-            </h1>
-
-            <p className="mt-4">Mobile: {user?.mobile}</p>
-
-            <p className="mb-6">Role: {user?.role}</p>
-
-            <div className="flex gap-4">
-
-                {user?.role === "farmer" && (
-                    <>
-                        <Link
-                            to="/add-product"
-                            className="bg-green-600 text-white px-5 py-3 rounded"
-                        >
-                            Add Product
-                        </Link>
-
-                        <Link
-                            to="/my-products"
-                            className="bg-blue-600 text-white px-5 py-3 rounded"
-                        >
-                            My Products
-                        </Link>
-                       
-
-                        <Link
-                            to="/farmer-orders"
-                            className="bg-yellow-500 text-white px-5 py-3 rounded"
-                        >
-                            Farmer Orders
-                        </Link>
-                        <div className="bg-green-100 p-4 rounded">
-                            <h3>Total Products</h3>
-                            <p className="text-2xl font-bold">
-                                {stats.totalProducts}
-                            </p>
-                        </div>
-
-                        <div className="bg-blue-100 p-4 rounded">
-                            <h3>Active Products</h3>
-                            <p className="text-2xl font-bold">
-                                {stats.activeProducts}
-                            </p>
-                        </div>
-
-                        <div className="bg-yellow-100 p-4 rounded">
-                            <h3>Out Of Stock</h3>
-                            <p className="text-2xl font-bold">
-                                {stats.outOfStock}
-                            </p>
-                        </div>
-                        <Link
-                            to="/my-chats"
-                            className="bg-purple-600 text-white px-5 py-3 rounded"
-                        >
-                            💬 My Chats
-                        </Link>
-
-
-                    </>
-                )}
-
-                {user?.role === "farmer" && (
-                    <div className="grid md:grid-cols-4 gap-4 mt-8">
-
-                        <div className="bg-blue-100 p-4 rounded">
-                            <h3>Total Orders</h3>
-                            <p className="text-2xl font-bold">
-                                {orderStats.totalOrders}
-                            </p>
-                        </div>
-
-                        <div className="bg-yellow-100 p-4 rounded">
-                            <h3>Pending</h3>
-                            <p className="text-2xl font-bold">
-                                {orderStats.pendingOrders}
-                            </p>
-                        </div>
-
-                        <div className="bg-green-100 p-4 rounded">
-                            <h3>Accepted</h3>
-                            <p className="text-2xl font-bold">
-                                {orderStats.acceptedOrders}
-                            </p>
-                        </div>
-
-                        <div className="bg-red-100 p-4 rounded">
-                            <h3>Rejected</h3>
-                            <p className="text-2xl font-bold">
-                                {orderStats.rejectedOrders}
-                            </p>
-                        </div>
-                        <div className="bg-green-200 p-4 rounded">
-                            <h3>Total Revenue</h3>
-                            <p className="text-2xl font-bold">
-                                ₹{revenue}
-                            </p>
-
-                        </div>
-                        <Link
-                            to="/notifications"
-                            className="bg-red-500 text-white px-5 py-3 rounded"
-                        >
-                            🔔 Notifications ({notificationCount})
-                        </Link>
-
-                    </div>
-                )}
-
-                {user?.role === "customer" && (
-                    <>
-                        <button onClick={() => navigate("/wishlist")}>
-                            ❤️ Wishlist
-                        </button>
-                        <Link
-                            to="/products"
-                            className="bg-purple-600 text-white px-5 py-3 rounded"
-                        >
-                            Marketplace
-                        </Link>
-
-                        <Link
-                            to="/my-orders"
-                            className="bg-indigo-600 text-white px-5 py-3 rounded"
-                        >
-                            My Orders
-                        </Link>
-                        <Link
-                            to="/my-chats"
-                            className="bg-purple-600 text-white px-5 py-3 rounded"
-                        >
-                            💬 My Chats
-                        </Link>
-                        <Link
-                            to="/nearby-products"
-                            className="bg-green-700 text-white px-5 py-3 rounded"
-                        >
-                            📍 Nearby Farmers
-                        </Link>
-                        <Link
-                            to="/nearby-map"
-                            className="bg-blue-600 text-white px-5 py-3 rounded"
-                        >
-                            🗺️ Nearby Farmers Map
-                        </Link>
-
-
-                    </>
-                )}
-                <Link
-                    to="/profile"
-                    className="bg-gray-600 text-white px-5 py-3 rounded"
-                >
-                    Profile
-                </Link>
-                <button
-                    onClick={logoutHandler}
-                    className="bg-red-600 text-white px-5 py-3 rounded"
-                >
-                    Logout
-                </button>
-                {user.role === "admin" && (
-                    <>
-                        <Link
-                            to="/admin-dashboard"
-                            className="bg-black text-white px-6 py-3 rounded mr-3"
-                        >
-                            👨‍💼 Admin Dashboard
-                        </Link>
-
-                        <Link
-                            to="/admin-users"
-                            className="bg-blue-600 text-white px-6 py-3 rounded"
-                        >
-                            👥 Manage Users
-                        </Link>
-                    </>
-                )}
-
+        <Page>
+            <div className="bg-white rounded-3xl shadow-xl p-8 mb-8">
+                <h1 className="text-4xl font-bold text-green-700">
+                    Welcome {user?.name} 🌾
+                </h1>
+                <p className="text-gray-500 mt-2">
+                    Mobile: {user?.mobile} | Role: {user?.role}
+                </p>
             </div>
 
-        </div>
+            {user?.role === "farmer" && (
+                <>
+                    <div className="grid md:grid-cols-4 gap-6 mb-8">
+                        <ActionCard to="/add-product" icon="➕" title="Add Product" />
+                        <ActionCard to="/my-products" icon="📦" title="My Products" />
+                        <ActionCard to="/farmer-orders" icon="🚚" title="Farmer Orders" />
+                        <ActionCard to="/my-chats" icon="💬" title="My Chats" />
+                    </div>
 
+                    <div className="grid md:grid-cols-4 gap-6">
+                        <StatCard title="Total Products" value={stats.totalProducts} icon="📦" />
+                        <StatCard title="Active Products" value={stats.activeProducts} icon="🌾" />
+                        <StatCard title="Out Of Stock" value={stats.outOfStock} icon="⚠️" />
+                        <StatCard title="Total Orders" value={orderStats.totalOrders} icon="📋" />
+                        <StatCard title="Pending" value={orderStats.pendingOrders} icon="⏳" />
+                        <StatCard title="Accepted" value={orderStats.acceptedOrders} icon="✅" />
+                        <StatCard title="Rejected" value={orderStats.rejectedOrders} icon="❌" />
+                        <StatCard title="Revenue" value={`₹${revenue}`} icon="💰" />
+                    </div>
+                    <div className="bg-white rounded-3xl shadow-xl p-6 mt-8">
+                        <h2 className="text-2xl font-bold mb-4">
+                            Monthly Revenue 📊
+                        </h2>
+
+                        <ResponsiveContainer width="100%" height={300}>
+                            <BarChart data={monthlyRevenue}>
+                                <XAxis dataKey="month" />
+                                <YAxis />
+                                <Tooltip />
+                                <Bar dataKey="revenue" />
+                            </BarChart>
+                        </ResponsiveContainer>
+                    </div>
+                </>
+            )}
+
+            {user?.role === "customer" && (
+                <div className="grid md:grid-cols-4 gap-6">
+                    <ActionCard to="/products" icon="🛒" title="Marketplace" />
+                    <ActionCard to="/my-orders" icon="📦" title="My Orders" />
+                    <ActionCard to="/wishlist" icon="❤️" title="Wishlist" />
+                    <ActionCard to="/my-chats" icon="💬" title="My Chats" />
+                    <ActionCard to="/nearby-products" icon="📍" title="Nearby Farmers" />
+                    <ActionCard to="/nearby-map" icon="🗺️" title="Farmers Map" />
+                </div>
+            )}
+
+            {user?.role === "admin" && (
+                <div className="grid md:grid-cols-3 gap-6">
+                    <ActionCard to="/admin-dashboard" icon="👨‍💼" title="Admin Dashboard" />
+                    <ActionCard to="/admin-users" icon="👥" title="Manage Users" />
+                    <ActionCard to="/admin-products" icon="🌾" title="Manage Products" />
+                </div>
+            )}
+        </Page>
     );
 }
 
